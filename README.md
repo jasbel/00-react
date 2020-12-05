@@ -68,3 +68,26 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+throw new Error ('el saludo no existe')
+
+Obligar a usar las variables estandar que definimos
+
+```
+import PropTypes from 'prop-types';
+
+const PrimeraApp = ( {saludo, subtitulo}) ...
+
+PrimeraApp.propTypes = {
+    saludo: PropTypes.string.isRequired
+}
+```
+
+### valor por defecto
+```
+PrimeraApp.defaultProps = {
+    subtitle: 'Soy un subtitulo'
+}
+```
+

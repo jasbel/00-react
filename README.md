@@ -2,9 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## apexchart
 
-In the project directory, you can run:
+Ejemplo de la libreria Apexchart \link [LINK](https://apexcharts.com/docs/react-charts/)
 
 ### `yarn start`
 

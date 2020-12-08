@@ -81,7 +81,7 @@ const ChartPage = () => {
     //   categories: datasTimes,
     // } });
  
-    setOptions(newPowers);
+    setPowers(newPowers);
   }
 
   useEffect(() => {

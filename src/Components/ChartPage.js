@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import {dataAleatory, dataGenerate, generateTimes} from '../api/Generate';
 
@@ -12,9 +12,18 @@ const ChartPage = () => {
 
   const [dataPowers, setDataPowers] = useState(totalPowers);
 
-  const [second, setSeconds] = useState(0);
-
   const [options, setOptions] = useState({
+    fill: {
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.9,
+        stops: [0, 90, 100]
+      }
+    },
+    stroke: {
+      curve: 'smooth',
+    },
     chart: {
       id: 'basic-bar',
     },
@@ -23,22 +32,35 @@ const ChartPage = () => {
       categories: dataTimes,
       title: {
         text: 'Time',
-      }
+      },
     },
     yaxis: {
       tickAmount: 10,
       min: 0,
       max: 155,
+    },
+    events: {
+      click: (event, chartContext, config) => {
+        // The last parameter config contains additional information like `seriesIndex` and `dataPointIndex` for cartesian charts
+        console.log("event click");
+      },
+      mouseMove: (event, chartContext, config) => {
+        console.log("event mouserMove");
+        // The last parameter config contains additional information like `seriesIndex` and `dataPointIndex` for cartesian charts.
+      },
+      zoomed: function(chartContext, { xaxis, yaxis }) {
+         console.log();
+      }
     }
   })
 
   const [powers, setPowers] = useState([
     {
-      name: "Potencia",
       data: dataPowers ,
     },
   ],)
 
+  /* TODO: Verificar Buenas practicas */
   //Actualizar Grafico
   const updateCharts = () => {
 
@@ -47,19 +69,29 @@ const ChartPage = () => {
     const lastData = powers[0].data[posLastData - 1];
     const newData =  dataAleatory(lastData);
 
-    powers.forEach((s) => {
-        const data = s.data.filter((v, index) =>  index != 0 );
-        data.push(newData)
-        newPowers.push({ data: data, type: s.type });
-    });
+    let datas = [...powers[0].data , newData];
+    datas=datas.filter((v, index) =>  index !== 0 );
+    newPowers.push({ data: datas });
 
-    console.log(newPowers[0].data);
-    setPowers(newPowers);
+    // const newTimes = {};
+    // let datasTimes = options.xaxis.categories ;
+    // datasTimes=datasTimes.filter((v, index) =>  index !== 0 );
+    // datasTimes.push(newData)
+    // newTimes.push({ xaxis: {
+    //   categories: datasTimes,
+    // } });
+ 
+    setOptions(newPowers);
   }
 
-  // setInterval(() => {
-  //    updateCharts();
-  //  }, 1000);
+  useEffect(() => {
+    const id = setInterval(() => {
+      updateCharts();
+    }, 1000);
+    return () => {
+      clearInterval(id)
+    }
+  }, [powers])
 
   return (
     <div className="app">

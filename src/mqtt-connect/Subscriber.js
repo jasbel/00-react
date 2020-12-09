@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Button} from 'reactstrap';
 
 const Subscriber = ({ sub, unSub, showUnsub }) => {
@@ -18,6 +18,13 @@ const Subscriber = ({ sub, unSub, showUnsub }) => {
     sub(record);
     setSubscribe('Suscrito')
   }
+
+  //TODO: averiguar para que se suscriba una vez halla conexion
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     handleSubscribe();
+  //   }, 5000);
+  // }, [])
 
   return (
     <Card

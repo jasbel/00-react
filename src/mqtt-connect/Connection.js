@@ -1,18 +1,15 @@
-import { Button, Container, Row, Col } from 'reactstrap';
-import React from 'react';
+import { Button, Row, Col } from 'reactstrap';
+import React, { useEffect } from 'react';
 
 const Connection = ({ connect, disconnect, connectBtn }) => {
 
   // Acceso al servidor
   const record = {
-    // host: 'https://servidoriot.ml/', // http://servidoriot.ml/, 52.67.166.235
-    // port: 18083, 
-    host: 'broker.emqx.io',
-    port: 8083,
+    host: 'servidoriot.ml',
+    port: 8093,
   };
 
   const { host, port } = record;
-  
   const url = `ws://${host}:${port}/mqtt`;
 
   const options = {
@@ -32,13 +29,17 @@ const Connection = ({ connect, disconnect, connectBtn }) => {
   };
 
   const handleConnect = () => {
-    
     connect(url, options);
   };
 
   const handleDisconnect = () => {
     disconnect();
   };
+
+  //TODO: conexion directa -  mejorar hook o posicion del evento
+  useEffect(() => {
+    handleConnect();
+  }, [])
 
 
   return (

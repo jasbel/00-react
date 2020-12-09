@@ -1,5 +1,6 @@
 import React, {  useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
+import { Button } from "reactstrap";
 import {dataAleatory, dataGenerate, generateTimes} from '../api/Generate';
 
 
@@ -104,8 +105,8 @@ const ChartPage = () => {
           width="600"
         />
         </div>
-        <p className="col">
-            <button onClick={updateCharts}>Update!</button>
+        <p className="col" style={{ textAlign:"center" }}>
+            <Button color="info" onClick={updateCharts}>Update!</Button>
         </p>
       </div>
     </div>
